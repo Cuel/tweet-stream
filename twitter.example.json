@@ -1,0 +1,7 @@
+{
+  "_comment": "Fill in with your twitter API keys and rename to twitter.json",
+  "consumer_key": "",
+  "consumer_secret": "",
+  "access_token_key": "",
+  "access_token_secret": ""
+}
