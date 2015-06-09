@@ -1,5 +1,5 @@
 {
-  "name": "tweet-get",
+  "name": "tweet-stream",
   "version": "0.0.1",
   "description": "Streams tweets",
   "main": "index.js",
