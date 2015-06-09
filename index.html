@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>Tweet streamer</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+		<style media="screen">
+		.row-eq-height {
+			display: -webkit-box;
+			display: -webkit-flex;
+			display: -ms-flexbox;
+			display: flex;
+		}
+
+		.custom-row {
+			margin-top: 1em
+		}
+
+		.custom-img {
+			width: 100%
+		}
+		</style>
+	</head>
+	<body>
+	  <nav class="navbar navbar-inverse navbar-fixed-top">
+	    <div class="container">
+	      <div class="navbar-header">
+	        <a class="navbar-brand" href="#" id="title">Tweet streamer</a>
+	      </div>
+	    </div>
+	  </nav>
+
+    <div class="container">
+      <div style="padding-top: 5em">
+				<div id="tweets"></div>
+      </div>
+    </div>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<!-- Mustache template engine -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.1.0/mustache.js" charset="utf-8"></script>
+		<!-- Load socket io (its not a JS file) -->
+		<script src="/socket.io/socket.io.js"></script>
+	</body>
+	<script type="text/javascript">
+
+	</script>
+
+	<script id="template" type="x-tmpl-mustache">
+		<div class="row custom-row row-eq-height">
+			<div class="col-xs-2">
+				<img class="img-rounded custom-img" src="{{tweet.img}}" alt="Twitter Image" />
+			</div>
+			<div class="col-xs-10">
+				<blockquote class="text-left">
+					{{tweet.text}}
+					<small><strong>{{tweet.name}}</strong></small>
+				</blockquote>
+			</div>
+		</div>
+	</script>
+</html>
