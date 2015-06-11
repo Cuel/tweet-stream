@@ -1,6 +1,7 @@
 #app specific
 node_modules
 twitter.json
+public/dist
 
 
 # Windows image file caches

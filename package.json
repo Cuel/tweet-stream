@@ -4,7 +4,11 @@
   "description": "Streams tweets",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "NODE_ENV=development && npm run dev:wp & npm run dev:bs & npm run start",
+    "dev:bs": "browser-sync start --proxy localhost --no-ghost-mode --files \"./public/index.html, ./public/dist/**\"",
+    "dev:wp": "webpack -p --watch"
   },
   "keywords": [
     "tweet",
@@ -17,5 +21,11 @@
     "express": "^4.12.4",
     "node-tweet-stream": "^1.8.1",
     "socket.io": "^1.3.5"
+  },
+  "devDependencies": {
+    "html-minify-loader": "^1.0.0",
+    "node-libs-browser": "^0.5.2",
+    "raw-loader": "^0.5.1",
+    "webpack": "^1.9.10"
   }
 }

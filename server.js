@@ -5,6 +5,7 @@ var server = require('http').Server(app)
 var io = require('socket.io').listen(server)
 var Twitter = require('node-tweet-stream')
 
+var PORT = 8080
 var keyword = '#cats'
 var credentials = JSON.parse(read('./twitter.json'))
 
@@ -27,7 +28,9 @@ t.on('tweet', parseAndEmitTweet)
 
 var prevTweets = []
 function parseAndEmitTweet (tweet) {
+
   console.log('New tweet (%s)', keyword)
+
   var parsedTweet = {
     text: tweet.text,
     name: tweet.user.screen_name,
@@ -46,26 +49,29 @@ function parseAndEmitTweet (tweet) {
 io.on('connection', function (socket) {
   socket.emit('keyword', keyword)
   // send the last 10 saved tweets
-  if (prevTweets.length) {
-    socket.emit('tweet', prevTweets)
-  }
+  if (prevTweets.length) socket.emit('tweet', prevTweets)
 
   socket.on('keyword:set', function (newKeyword) {
+    if (!newKeyword || typeof newKeyword !== 'string') return
+
     t.untrack(keyword)
     keyword = newKeyword
     t.track(keyword)
+
+    prevTweets = []
     io.emit('keyword', keyword)
-    console.log('Now tracking: %s', newKeyword)
+
+    console.log('Tracked keyword updated. Now tracking: %s', newKeyword)
   })
 })
 
 // Serve assets and index.html
-app.use(express.static('public'))
+app.use(express.static('public/dist'))
 app.get('/', function (req, res) {
-  res.sendFile('index.html')
+  res.sendFile('index.html', {root: 'public'})
 })
 
 // Start server
-server.listen(8080, function onListening () {
-  console.log('App listening')
+server.listen(PORT, function onListening () {
+  console.log('App listening on %s', PORT)
 })
