@@ -25,19 +25,34 @@
 			.pad5 {
 				padding-top: 5em;
 			}
+			.search-btn {
+				margin-top: 0.5em;
+				margin-right: 0.5em;
+			}
+			.invis {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
 	  <nav class="navbar navbar-inverse navbar-fixed-top">
 	    <div class="container">
 	      <div class="navbar-header">
-	        <a class="navbar-brand" href="#" id="title">Tweet streamer</a>
+	        <a class="navbar-brand" href="/" id="title">Tweet stream. Tracking: </a>
+					<button type="button" class="search-btn btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					</button>
 	      </div>
 	    </div>
 	  </nav>
 
     <div class="container">
       <div class="pad5">
+				<div class="search-window row invis">
+				  <div class="col-lg-6">
+			      <input type="text" class="form-control" placeholder="Search for...">
+				  </div><!-- /.col-lg-6 -->
+				</div><!-- /.row -->
 				<div id="tweets"></div>
       </div>
     </div>
