@@ -1,4 +1,4 @@
 'use strict'
 
-require('./tweet')
-require('./keyword')
+require('./tweet').init()
+require('./keyword').init()

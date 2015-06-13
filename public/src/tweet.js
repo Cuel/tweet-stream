@@ -5,24 +5,18 @@ var socket = require('./socket')
 var util = require('./util')
 var template = require('./tweet.tmpl.html')
 
-var TWEET_CNTR = $('#tweets')
+var TWEET_CNTR = $('#js-tweets-container')
+var MIN_MS_BETWEEN_TWEETS = 800
 var tweetQueue = []
+var queueRunning = false
 
 // Let mustache parse the template to speed things up
 Mustache.parse(template)
 
-socket.onTweet(function (tweet) {
-  if (Array.isArray(tweet)) {
-    tweet.forEach(parseTweet)
-  }else {
-    parseTweet(tweet)
-  }
-})
-
 function parseTweet (tweet) {
   // For full res images on desktops
   if (!util.isMobile) {
-    tweet.img = util.stripNormalFromUrl(tweet.img)
+    tweet.img = util.twitterImgToFullSize(tweet.img)
   }
   tweet.text = util.parseTwitterUserNames(tweet.text)
   tweet.text = util.parseURLs(tweet.text)
@@ -30,18 +24,17 @@ function parseTweet (tweet) {
 
   util.preLoadImage(tweet.img)
   .then(function imageLoaded () {
-    addToRenderQueue(tweet)
+    compileTweet(tweet)
   })
 }
 
-function addToRenderQueue (tweet) {
+function compileTweet (tweet) {
   var t = $(Mustache.render(template, {tweet: tweet}))
-  tweetQueue.push(t)
-  runTweetQueue()
+  renderTweet(t)
 }
 
-var queueRunning = false
-function runTweetQueue () {
+function renderTweet (tweet) {
+  if (tweet) tweetQueue.push(tweet)
   if (queueRunning || !tweetQueue.length) return
   queueRunning = true
 
@@ -50,12 +43,23 @@ function runTweetQueue () {
   .hide()
   .slideDown(function animDone () {
     tweetQueue.shift()
-    queueRunning = false
-    runTweetQueue()
+    setTimeout(function () {
+      queueRunning = false
+      renderTweet()
+    }, MIN_MS_BETWEEN_TWEETS)
   })
 }
 
 exports = module.exports = {
+  init: function () {
+    socket.onTweet(function (tweet) {
+      if (Array.isArray(tweet)) {
+        tweet.forEach(parseTweet)
+      }else {
+        parseTweet(tweet)
+      }
+    })
+  },
   clearQueue: function () {
     tweetQueue = []
   }

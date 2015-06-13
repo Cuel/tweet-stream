@@ -18,7 +18,8 @@ var t = new Twitter({
 })
 
 t.on('error', function (err) {
-  console.log(err)
+  console.warn('Twitter connection error')
+  console.error(err)
 })
 
 // Tells twitter instance to listen on the keyword

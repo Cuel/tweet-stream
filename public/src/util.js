@@ -4,15 +4,13 @@
 var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
   .test(window.navigator.userAgent)
 
-function stripNormalFromUrl (url) {
-  return url
-  .split(' ')
-  .reverse()
-  .join(' ')
+function twitterImgToFullSize (url) {
+  url =
+  url.split(' ').reverse().join(' ')
   .replace('_normal', '')
-  .split(' ')
-  .reverse()
-  .join(' ')
+  .split(' ').reverse().join(' ')
+
+  return url
 }
 
 function parseURLs (str) {
@@ -30,28 +28,26 @@ function parseTwitterUserNames (str) {
 function parseHashtags (str) {
   return str.replace(/[#]+[A-Za-z0-9-_]+/g, function (t) {
     var tag = t.replace('#', '%23')
-    return t.link('http://search.twitter.com/search?q=' + tag)
+    return t.link('http://search.twitter.com/search?dfd=' + tag)
   })
 }
 
 function preLoadImage (url) {
-  var Q = $.Deferred()
-
-  var img = $('<img />')
+  var dfd = $.Deferred(),
+    img = $('<img />')
   .attr('src', url)
   .load(function () {
     img.remove()
-    Q.resolve()
+    dfd.resolve()
   })
-
-  return Q.promise()
+  return dfd.promise()
 }
 
 exports = module.exports = {
   isMobile: isMobile,
 	preLoadImage: preLoadImage,
 	parseHashtags: parseHashtags,
-	stripNormalFromUrl: stripNormalFromUrl,
+  twitterImgToFullSize: twitterImgToFullSize,
 	parseTwitterUserNames: parseTwitterUserNames,
 	parseURLs: parseURLs
 }
