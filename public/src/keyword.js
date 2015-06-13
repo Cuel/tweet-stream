@@ -8,7 +8,7 @@ var TITLE = $('#js-title')
 var SEARCH_BTN = $('#js-search-btn')
 var SEARCH_WIN = $('#js-search-win')
 var SEARCH_INP = SEARCH_WIN.find('input')
-debugger;
+
 var KEY_ENT = 13
 var KEY_ESC = 27
 
