@@ -19,8 +19,11 @@
 				margin-top: 1em;
 			}
 			.custom-img {
-				height: 100%;
+				min-height: 82px;
 				width: 100%;
+			}
+			.mt-1 {
+				margin-top: 1em
 			}
 			.pad5 {
 				padding-top: 5em;
@@ -33,12 +36,14 @@
 	<body>
 	  <nav class="navbar navbar-inverse navbar-fixed-top">
 	    <div class="container">
-	      <div class="navbar-header">
+
 	        <a class="navbar-brand" href="/" id="js-title">Tweet stream. Tracking: </a>
-					<button type="button" id="js-search-btn" class="btn btn-default" aria-label="Left Align">
+
+					<button type="button" id="js-search-btn"
+						class="btn btn-default navbar-btn pull-right"
+						aria-label="Right Align">
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					</button>
-	      </div>
 	    </div>
 	  </nav>
 
@@ -49,9 +54,9 @@
 			      <input type="text" class="form-control" placeholder="Track this keyword...">
 				  </div><!-- /.col-lg-6 -->
 				</div><!-- /.row -->
-				<div id="js-tweets-container"></div>
       </div>
     </div>
+		<div id="js-tweets-container" class="container"></div>
 
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
